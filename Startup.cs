@@ -21,23 +21,22 @@ namespace LearnAspNetCoreMvc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Console.WriteLine("env:" + env.EnvironmentName);
+            app.UseExceptionHandler("/error.html");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseRouting();
-            app.Use(async(context,next)=>{
-                await context.Response.WriteAsync("From first middleware with love\n");
+            app.Use(async(context,next)=>
+            {
+                if(context.Request.Path.Value.Contains("invalid")){
+                    throw new Exception("cannot handdle");
+                }
                 await next();
             });
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World");
-                });
-            });
+            app.UseFileServer();
         }
     }
 }
