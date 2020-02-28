@@ -21,13 +21,19 @@ namespace LearnAspNetCoreMvc
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //Dependency injection
+            services.AddSingleton<IFeatureToggle>((serviceProvider => {
+                bool isProd = serviceProvider.GetService<IWebHostEnvironment>().IsProduction();
+                return new FeatureToggle(isProd);
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IFeatureToggle featureToggle)
         {
             Console.WriteLine("env:" + env.EnvironmentName);
             Console.WriteLine("config priority: " + configuration["CONFIG_PRIORITY_CODE"]);
+            Console.WriteLine("should use feature: "+featureToggle.shouldRun());
             app.UseExceptionHandler("/error.html");
             if (configuration.GetValue<bool>("IS_DEV_ENV"))
             {
