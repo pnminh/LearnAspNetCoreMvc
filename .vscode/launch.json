@@ -19,7 +19,8 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Production",
-                "IS_DEV_ENV": "True"
+                "IS_DEV_ENV": "True",
+                //"CONFIG_PRIORITY_CODE": "env_variables"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

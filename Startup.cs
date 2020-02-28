@@ -27,6 +27,7 @@ namespace LearnAspNetCoreMvc
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             Console.WriteLine("env:" + env.EnvironmentName);
+            Console.WriteLine("config priority: " + configuration["CONFIG_PRIORITY_CODE"]);
             app.UseExceptionHandler("/error.html");
             if (configuration.GetValue<bool>("IS_DEV_ENV"))
             {
