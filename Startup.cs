@@ -22,10 +22,12 @@ namespace LearnAspNetCoreMvc
         public void ConfigureServices(IServiceCollection services)
         {
             //Dependency injection
+            //add singleton (1 per app)
             services.AddSingleton<IFeatureToggle>((serviceProvider => {
                 bool isProd = serviceProvider.GetService<IWebHostEnvironment>().IsProduction();
                 return new FeatureToggle(isProd);
             }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
