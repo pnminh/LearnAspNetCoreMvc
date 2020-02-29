@@ -27,17 +27,7 @@ namespace LearnAspNetCoreMvc
             }
 
             app.UseRouting();
-            app.Use(async(context,next)=>{
-                await context.Response.WriteAsync("From first middleware with love\n");
-                await next();
-            });
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World");
-                });
-            });
+            app.UseFileServer();
         }
     }
 }
