@@ -28,10 +28,12 @@ namespace LearnAspNetCoreMvc
             }
 
             app.UseRouting();
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
             app.UseEndpoints(endpointRouteBuilder => {
                 endpointRouteBuilder.MapControllerRoute("Default","{Controller=Home}/{action=Index}/{id?}");
             });
-            app.UseFileServer();
+            //app.UseFileServer();
         }
     }
 }
