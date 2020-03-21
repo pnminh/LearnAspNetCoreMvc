@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LearnAspNetCoreMvc.Controllers
 {
-    [Route("blogs")]
+    [Route("blog")]
     public class BlogController : Controller
     {
         [HttpGet]
