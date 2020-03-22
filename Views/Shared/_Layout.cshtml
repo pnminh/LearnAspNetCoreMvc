@@ -42,9 +42,7 @@
         <li><a href="explorers.htm" title="Our community">Explorers <br /><span class="tagline">join our community</span></a>
           <ul>
             <li><a href="explorers/join.htm" title="join our community">Join the Explorers</a></li>
-            @* <li><a href="/blog" title="read our blog!">Read our Blog</a></li> *@
-            <li>@Html.ActionLink("Read our blog","Index","Blog", null, new {title = "read our blog"})</li>
-            <li><a href='@Url.Action("Index","Blog")' title="read our blog">Read our blog</a></li>
+            <li><a href="/blog" title="read our blog!">Read our Blog</a></li>
             <li><a href="explorers/gallery.htm" title="contributor photos">Tour Photos</a></li>
             <li><a href="_video/EC_podcast_full version.mov" title="check out our podcast">Video podcast</a></li>
           </ul>
@@ -58,16 +56,12 @@
     </nav>
   </header>
   <section id="actionCall">
-    @if(IsSectionDefined("header")){
-      @RenderSection("header",false)
-    }else{
-      <h1>Placeholder for section header</h1>
-    }
-    
+  <h1>Explore our world your way</h1>
+  <a href="/tours.htm" title="Find your tour!"><h2>Find your tour</h2></a>
   </section>
   <div id="contentWrapper">
   <section id="mainContent">
-    @RenderBody()
+      @RenderBody()
   </section>
     <aside id="secondaryContent">
         <div id="specials" class="callOut">
@@ -96,7 +90,6 @@
         <div id="trivia" class="callOut">
             <h1>Did You Know?</h1>
             <p>California produces over 17 million gallons of wine each year!</p>
-            <p>Do you know this year is @DateTime.Now.Year</p>
         </div>
     </aside>
   </div>

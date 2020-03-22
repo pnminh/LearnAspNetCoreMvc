@@ -7,13 +7,13 @@ namespace LearnAspNetCoreMvc.Controllers
     public class BlogController : Controller
     {
         [HttpGet("")]
-        public IActionResult index()
+        public IActionResult Index()
         {
             return View();
         }
-        [HttpGet("getPerson")]
-        public IActionResult GetPerson(){
-            return View(new Person{FirstName="Minh",LastName="Pham"});
+        [HttpGet("{year:min(1900)}/{month:range(1,12)}/{key}")]
+        public IActionResult GetPost(int year, int month, string key){
+            return View();
         }
 
     }

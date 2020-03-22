@@ -4,7 +4,7 @@ namespace LearnAspNetCoreMvc.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult index()
+        public IActionResult Index()
         {
             return View();
         }
