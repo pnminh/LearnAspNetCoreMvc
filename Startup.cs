@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnAspNetCoreMvc.Models;
 using LearnAspNetCoreMvc.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,7 +19,8 @@ namespace LearnAspNetCoreMvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IFormatService,FormatService>();
+            services.AddSingleton<IFormatService, FormatService>();
+            services.AddTransient<SpecialDataContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
