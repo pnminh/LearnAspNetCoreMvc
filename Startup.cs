@@ -8,11 +8,12 @@ using LearnAspNetCoreMvc.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+ 
 namespace LearnAspNetCoreMvc
 {
     public class Startup
@@ -28,6 +29,11 @@ namespace LearnAspNetCoreMvc
         {
             services.AddControllersWithViews();
             services.AddSingleton<IFormatService, FormatService>();
+            services.AddDbContext<IdentityDataContext>(options => {
+                var connString = _configuration.GetConnectionString("IdentityDataContext");
+                options.UseSqlServer(connString);
+            });
+            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<IdentityDataContext>();
             services.AddDbContext<SpecialDataContext>(options =>
             {
                 var connString = _configuration.GetConnectionString("SpecialDataContext");
@@ -52,6 +58,8 @@ namespace LearnAspNetCoreMvc
             /* app.UseDefaultFiles();
             app.UseStaticFiles(); */
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpointRouteBuilder =>
             {
                 endpointRouteBuilder.MapControllerRoute("Default", "{Controller=Home}/{action=Index}/{id?}");

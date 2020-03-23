@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using LearnAspNetCoreMvc.Models;
 using LearnAspNetCoreMvc.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnAspNetCoreMvc.Controllers {
@@ -39,12 +40,12 @@ namespace LearnAspNetCoreMvc.Controllers {
             var post = _blogDbContext.Posts.FirstOrDefault (x => x.Key == key);
             return View ("post", post);
         }
-
+        [Authorize]
         [HttpGet ("create")]
         public IActionResult Create () {
             return View ();
         }
-
+        [Authorize]
         [HttpPost ("create")]
         public IActionResult Create (Post post) {
             if (!ModelState.IsValid) return View ();
