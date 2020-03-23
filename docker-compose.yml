@@ -1,9 +1,20 @@
 version: "3.3"
 services:
+  mvc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
   db:
     build:
       context: ./docker/db
       dockerfile: Dockerfile
+    #should not expose port when run in prod
     ports:
       - "1433:1433"
     environment:
