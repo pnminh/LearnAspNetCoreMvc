@@ -20,8 +20,8 @@ namespace LearnAspNetCoreMvc.apis
         }
 
         [HttpGet("{id}")]
-        public string Get(string postKey,string id){
-            return "value";
+        public Comment GetById(long id){
+            return this._dbContext.Comments.FirstOrDefault(x => x.Id==id);
         }
         [HttpPost]
         public Comment Post(string postKey, [FromBody]Comment comment){
@@ -36,12 +36,20 @@ namespace LearnAspNetCoreMvc.apis
 
         }
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody]string value){
-
+        public IActionResult Put(long id, [FromBody]Comment value){
+            var comment = _dbContext.Comments.FirstOrDefault(x=>x.Id == id);
+            if(comment==null)return NotFound();
+            comment.Body = value.Body;
+            _dbContext.SaveChanges();
+            return Ok();
         }
         [HttpDelete("{id}")]
-        public void Delete(string id){
-            
+        public void Delete(long id){
+            var comment = _dbContext.Comments.FirstOrDefault(x=>x.Id == id);
+            if(comment != null){
+                _dbContext.Comments.Remove(comment);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
