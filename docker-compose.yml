@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  db:
+    build:
+      context: ./docker/db
+      dockerfile: Dockerfile
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pass@123
+    volumes:
+      - learn-aspnet-coremvc:/var/opt/mssql"
+volumes:
+  learn-aspnet-coremvc:

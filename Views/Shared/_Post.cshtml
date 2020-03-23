@@ -1,7 +1,9 @@
+@* partial view *@
 @model LearnAspNetCoreMvc.Models.Post
 @inject LearnAspNetCoreMvc.Services.IFormatService FormatService
 <article class="blog-post">
-    <h1>@Model.Title</h1>
+    <h1>@Html.ActionLink(Model.Title,"GetPost","Blog", new {year=Model.Posted.Year, month=Model.Posted.Month,key=Model.Key})</h1>
+    @* <h1><a href='@Url.Action("GetPost","Blog", new {year=Model.Posted.Year, month=Model.Posted.Month,key=Model.Key})'>@Model.Title</a></h1> *@
     <div class="details">Posted <span>@FormatService.ToReadableDate(Model.Posted)</span> by <span>@Model.Author</span></div>
     <div class="content">@Model.Body</div>
 </article>

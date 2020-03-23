@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LearnAspNetCoreMvc.Models;
+using LearnAspNetCoreMvc.Repositories;
 using LearnAspNetCoreMvc.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,6 +17,10 @@ namespace LearnAspNetCoreMvc
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        public Startup(IConfiguration configuration){
+            this._configuration = configuration;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -21,6 +28,11 @@ namespace LearnAspNetCoreMvc
             services.AddControllersWithViews();
             services.AddSingleton<IFormatService, FormatService>();
             services.AddTransient<SpecialDataContext>();
+            services.AddDbContext<BlogDataContext>(options=>{
+                var connString = _configuration.GetConnectionString("BlogDataContext");
+                //method extension
+                options.UseSqlServer(connString);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
