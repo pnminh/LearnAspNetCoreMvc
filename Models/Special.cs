@@ -4,12 +4,13 @@ namespace LearnAspNetCoreMvc.Models
 {
     public class Special
     {
+        public long id { get; internal set; }
         public string Key { get; internal set; }
         public string Name { get; internal set; }
         public string Type { get; internal set; }
         public int Price { get; internal set; }
     }
-    public class SpecialDataContext
+    /* public class SpecialDataContext
     {
         public IEnumerable<Special> GetSpecials()
         {
@@ -40,5 +41,5 @@ namespace LearnAspNetCoreMvc.Models
                 }
             };
         }
-    }
+    } */
 }

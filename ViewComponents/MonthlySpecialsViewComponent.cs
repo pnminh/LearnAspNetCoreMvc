@@ -1,4 +1,6 @@
+using System.Linq;
 using LearnAspNetCoreMvc.Models;
+using LearnAspNetCoreMvc.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnAspNetCoreMvc.ViewComponents
@@ -11,7 +13,7 @@ namespace LearnAspNetCoreMvc.ViewComponents
             this._specialDataContext = specialDataContext;
         }
         public IViewComponentResult Invoke(){
-            return View(_specialDataContext.GetSpecials());
+            return View(_specialDataContext.Specials.ToArray());
         }
     }
 }

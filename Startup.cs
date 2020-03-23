@@ -18,7 +18,8 @@ namespace LearnAspNetCoreMvc
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        public Startup(IConfiguration configuration){
+        public Startup(IConfiguration configuration)
+        {
             this._configuration = configuration;
         }
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -27,8 +28,13 @@ namespace LearnAspNetCoreMvc
         {
             services.AddControllersWithViews();
             services.AddSingleton<IFormatService, FormatService>();
-            services.AddTransient<SpecialDataContext>();
-            services.AddDbContext<BlogDataContext>(options=>{
+            services.AddDbContext<SpecialDataContext>(options =>
+            {
+                var connString = _configuration.GetConnectionString("SpecialDataContext");
+                options.UseSqlServer(connString);
+            });
+            services.AddDbContext<BlogDataContext>(options =>
+            {
                 var connString = _configuration.GetConnectionString("BlogDataContext");
                 //method extension
                 options.UseSqlServer(connString);
