@@ -34,6 +34,10 @@ namespace LearnAspNetCoreMvc
                 options.UseSqlServer(connString);
             });
             services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<IdentityDataContext>();
+            services.ConfigureApplicationCookie(options => {
+                options.LoginPath = $"/Account/Login";//default login route
+                options.LogoutPath = $"/Account/Logout";//default logout route
+            });
             services.AddDbContext<SpecialDataContext>(options =>
             {
                 var connString = _configuration.GetConnectionString("SpecialDataContext");
